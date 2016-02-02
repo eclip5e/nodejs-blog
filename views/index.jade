@@ -3,8 +3,20 @@ extends layout
 block content
     h1= title
     p Welcome to #{title}
+
     ul
-        li
-            a(href='/register') Create Account
-        li
-            a(href='/login') Login
+        unless userLoggedIn
+            li
+                a(href='/register') Create Account
+            li
+                a(href='/login') Login
+        if userLoggedIn
+            li
+                a(href='/article/add') Create Article
+
+    each article in articles
+        div
+            div
+                b #{article.title}
+            div #{article.body}
+        br

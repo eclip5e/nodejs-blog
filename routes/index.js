@@ -1,9 +1,20 @@
 var express = require('express');
 var router = express.Router();
+var Article = require('../models/article');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+
+    Article.find(function (err, articles) {
+        if (err) return console.error(err);
+
+        res.render('index', {
+            title: 'Blog Application',
+            userLoggedIn: req.isAuthenticated(),
+            articles: articles
+        });
+    });
+
 });
 
 router.get('/logout', function(req, res) {

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    h1= title
+
+    form(action='/article/add',method='POST')
+        div
+            label Title:
+            input(type='text',name='articleTitle')
+        div
+            label Body:
+            textarea(name='articleBody')
+        div
+            input(type='submit',title='Add Article')
