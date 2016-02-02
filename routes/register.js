@@ -10,7 +10,7 @@ module.exports = function(passport) {
 
     /* POST Registration form. */
     router.post('/', passport.authenticate('local-signup', {
-        successRedirect : '/account',
+        successRedirect : '/profile',
         failureRedirect : '/',
         failureFlash : true
     }));

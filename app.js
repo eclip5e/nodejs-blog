@@ -36,13 +36,15 @@ require('./config/passport')(passport);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var login = require('./routes/login');
 var register = require('./routes/register')(passport);
+var login = require('./routes/login')(passport);
+var user = require('./routes/user');
 
 app.use('/', routes);
 app.use('/users', users);
 app.use('/login', login);
 app.use('/register', register);
+app.use('/profile', user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

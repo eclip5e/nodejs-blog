@@ -53,4 +53,30 @@ module.exports = function(passport) {
 
     }));
 
+    // LOCAL LOG IN - Strategy configuration.
+
+    passport.use('local-login', new LocalStrategy({
+        passReqToCallback : true
+    },
+    function(req, username, password, done) {
+
+        User.findOne({ 'local.username' :  username }, function(err, user) {
+            // if there are any errors, return the error before anything else
+            if (err)
+                return done(err);
+
+            // if no user is found, return the message
+            if (!user)
+                return done(null, false, req.flash('loginMessage', 'No user found.'));
+
+            // if the user is found but the password is wrong
+            if (!user.validatePassword(password))
+                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+
+            // all is well, return successful user
+            return done(null, user);
+        });
+
+    }));
+
 };
