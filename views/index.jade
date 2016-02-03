@@ -17,6 +17,7 @@ block content
     each article in articles
         div
             div
-                b #{article.title}
+                a(href='/article/' + article._id)
+                    b #{article.title}
             div #{article.body}
         br

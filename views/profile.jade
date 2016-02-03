@@ -2,5 +2,11 @@ extends layout
 
 block content
     h1 Profile page
-    a(href='/logout') Logout
-    #{user}
+    ul
+        li
+            a(href='/') Home
+        li
+            a(href='/logout') Logout
+
+    div
+        #{user}
