@@ -1,0 +1,14 @@
+extends layout
+
+block content
+
+    ul
+        li
+            a(href='/') Home
+        if canEdit
+            li
+                a(href= article._id + '/delete') Delete
+
+    h1= article.title
+    br
+    div= article.body

@@ -12,12 +12,18 @@ block content
                 a(href='/login') Login
         if userLoggedIn
             li
+                a(href='/profile') Profile
+            li
                 a(href='/article/add') Create Article
+            li
+                a(href='/logout') Logout
 
     each article in articles
         div
             div
                 a(href='/article/' + article._id)
                     b #{article.title}
+                div Author:
+                    b #{article.author}
             div #{article.body}
         br

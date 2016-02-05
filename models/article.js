@@ -4,6 +4,8 @@ var mongoose = require('mongoose');
 
 var articleSchema = mongoose.Schema({
 
+    owner: String,
+    author: String,
     title: String,
     body: String,
     created: {

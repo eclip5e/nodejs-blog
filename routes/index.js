@@ -8,8 +8,6 @@ router.get('/', function(req, res, next) {
     Article.find(function (err, articles) {
         if (err) return console.error(err);
 
-        console.log('-> INDEX PAGE ARTICLES:', articles);
-
         res.render('index', {
             title: 'Blog Application',
             userLoggedIn: req.isAuthenticated(),
