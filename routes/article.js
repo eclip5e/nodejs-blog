@@ -28,7 +28,7 @@ router.get('/:id', function (req, res) {
     Article.findOne({ '_id': req.params.id }, function (err, article) {
         if (err) return console.error(err);
 
-        var canEdit = req.user && (req.user.id === article.owner);
+        var canEdit = req.user && (req.user._id.equals(article.owner));
 
         res.render('article', {
             title: 'Blog Application',
@@ -40,10 +40,15 @@ router.get('/:id', function (req, res) {
 
 // DELETE | Article removal.
 router.get('/:id/delete', isLoggedIn, function (req, res) {
-    Article.findOneAndRemove({ '_id': req.params.id, owner: req.user._id }, function (err, article) {
+    Article.findOne({ '_id': req.params.id }, function (err, article) {
         if (err) return console.error(err);
 
-        res.redirect('/');
+        if (req.user._id.equals(article.owner)) {
+            article.remove();
+            res.redirect('/');
+        } else {
+            res.send(403);
+        }
     })
 });
 

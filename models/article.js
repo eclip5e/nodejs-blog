@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 var articleSchema = mongoose.Schema({
 
-    owner: String,
+    owner: mongoose.Schema.Types.ObjectId,
     author: String,
     title: String,
     body: String,
