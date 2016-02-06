@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    h1= title
+
+    form(action='/article/' + article._id + '/edit',method='POST')
+        div
+            label Title:
+            input(type='text',name='articleTitle',value=article.title)
+        div
+            label Body:
+            textarea(name='articleBody') #{article.body}
+
+        div
+            input(type='submit',title='Save Article')

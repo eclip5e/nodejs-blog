@@ -38,6 +38,41 @@ router.get('/:id', function (req, res) {
     });
 });
 
+// GET | Article edit page.
+router.get('/:id/edit', isLoggedIn, function (req, res) {
+    Article.findOne({ '_id': req.params.id }, function (err, article) {
+        if (err) return console.error(err);
+
+        if (req.user._id.equals(article.owner)) {
+            res.render('article-edit', {
+                title: 'Edit Article',
+                article: article
+            });
+        } else {
+            res.send(403);
+        }
+    });
+});
+
+// POST | Article edit page.
+router.post('/:id/edit', isLoggedIn, function (req, res) {
+    Article.findOne({ '_id': req.params.id }, function (err, article) {
+        if (err) return console.error(err);
+
+        if (req.user._id.equals(article.owner)) {
+            article.update({
+                title: req.body.articleTitle,
+                body: req.body.articleBody
+            }).exec();
+
+            res.redirect('/article/' + req.params.id);
+
+        } else {
+            res.send(403);
+        }
+    });
+});
+
 // DELETE | Article removal.
 router.get('/:id/delete', isLoggedIn, function (req, res) {
     Article.findOne({ '_id': req.params.id }, function (err, article) {
@@ -49,7 +84,7 @@ router.get('/:id/delete', isLoggedIn, function (req, res) {
         } else {
             res.send(403);
         }
-    })
+    });
 });
 
 module.exports = router;
